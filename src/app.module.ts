@@ -3,6 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { RequestsController } from './requests/requests.controller';
+import { RequestsService } from './requests/requests.service';
+import { RequestsModule } from './requests/requests.module';
 
 @Module({
   imports: [
@@ -19,8 +22,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
       models: [],
       autoLoadModels: true,
     }),
+    RequestsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, RequestsController],
+  providers: [AppService, RequestsService],
 })
 export class AppModule {}
