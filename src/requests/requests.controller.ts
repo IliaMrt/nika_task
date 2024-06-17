@@ -3,6 +3,7 @@ import { RequestsService } from './requests.service';
 import { RequestDto } from './dto/request.dto';
 import { IdDto } from './dto/id.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Roles } from "../auth/roles-auth.decorator";
 
 @Controller('requests')
 @ApiTags('API клиентских заявок')
@@ -14,11 +15,13 @@ export class RequestsController {
     return await this.requestsService.createNewRequest(request);
   }
   @Get(':id')
+  @Roles('Admin')
   @ApiOperation({ summary: 'Получение заявки по id' })
   async getRequest(@Param() id: IdDto) {
     return await this.requestsService.getRequest(id);
   }
   @Put(':id')
+  @Roles('Admin')
   @ApiOperation({ summary: 'Редактирование заявки по id' })
   async updateRequest(@Param() id: IdDto, @Body() request: RequestDto) {
     return await this.requestsService.updateRequest(id, request);
